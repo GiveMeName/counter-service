@@ -1,0 +1,12 @@
+.counterGroup {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.counter {
+    border: 1px solid rgb(0, 0, 0);
+    width: 100px;
+    height: 100px;
+}
