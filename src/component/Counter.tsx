@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Counter, Log, Queue } from '../lib/lib';
 
 const member = [{
   id: "S01023",
@@ -21,28 +20,55 @@ const member = [{
   name: "張林"
 }];
 
-function CounterUI(counterNumber: number, queue: Queue, setQueues: React.Dispatch<React.SetStateAction<number[]>>, setShowMessage: React.Dispatch<React.SetStateAction<boolean>>, log: Log) {
+const types = ["定存/活存", "信用卡", "基金", "保險", "彩券兌獎", "外幣交易"];
 
+function CounterUI(props: { counterNumber: number, queues: number[], start: Function, finish: Function }) {
+
+  const { counterNumber, queues, start, finish } = props;
   const [count, setCount] = useState(0);
   const { id, name } = member[counterNumber];
-  const counter = new Counter(id, name, log);
-
   const [disabled, setDisabled] = useState(false);
+
+  //開始下一個服務
+  const exec = () => {
+
+    return new Promise(function (resolve, reject) {
+
+      const type = types[Math.floor(Math.random() * types.length)];
+
+      let func = () => {
+        finish("info", id, name, type, "", time);
+        resolve(true);
+      };
+      const r = Math.floor(Math.random() * 101);
+      let time = Math.floor(Math.random() * 5) + 2000;
+
+      //假設服務時間超過30分鐘的機率只有10%
+      if (r > 90) {
+        time = (time + Math.floor(Math.random() * 5) + 1) + 5000;
+        func = () => {
+          finish("warn", id, name, type, "異常原因....", time);
+          resolve(true);
+        };
+      }
+      setTimeout(func, time);
+    });
+
+  }
 
   const handClick = () => {
 
-    const lastNumber = queue.getlastNumber();
-
-    if (lastNumber === 0) {
-
+    if (queues.length === 0) {
+      
       return;
 
     }
-    setQueues(queue.list);
-    setShowMessage(false);
+    const lastNumber = queues[0];
+
+    start();
     setCount(lastNumber);
     setDisabled(true);
-    counter.exec().then(() => {
+    exec().then(() => {
       setDisabled(false);
     });
   }
@@ -50,8 +76,7 @@ function CounterUI(counterNumber: number, queue: Queue, setQueues: React.Dispatc
   return (
     <div className='counter' key={counterNumber}>
       櫃台: {count} 號
-      <button type='button' disabled={disabled} onClick={() => { handClick() }}>{disabled === false ? "叫號" : "服務中"}</button>
-
+      <button type='button' disabled={disabled} onClick={handClick}>{disabled === false ? "叫號" : "服務中"}</button>
     </div>
   );
 }
