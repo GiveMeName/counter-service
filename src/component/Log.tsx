@@ -14,10 +14,10 @@ function LogUI(props: { data: ILog[] }) {
 
         list.push(
             <tr key={i}>
-                <td>{id}</td>
-                <td>{name}</td>
+                <td >{id}</td>
+                <td >{name}</td>
                 <td style={{ color: color }}>{state}</td>
-                <td>{type}</td>
+                <td >{type}</td>
                 <td>{remark}</td>
                 <td>{processTime}</td>
                 <td>{date}</td>
@@ -25,33 +25,27 @@ function LogUI(props: { data: ILog[] }) {
     }
 
     return (
-        <table>
-            <thead>
-                <tr>
-                    <th colSpan={7}>服務紀錄表</th>
-                </tr>
-                <tr>
-                    <th>工號</th>
-                    <th>姓名</th>
-                    <th>狀態</th>
-                    <th>類別</th>
-                    <th>備註</th>
-                    <th>處理時間</th>
-                    <th>紀錄時間</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td colSpan={7}>
-                        <div style={{ overflowY: "scroll", height: "500px" }}>
-                            <table>
-                                {list}
-                            </table>
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <div className="logScrollerDiv">
+            <table className="logTable">
+                <thead className="thead">
+                    <tr>
+                        <th colSpan={7}>服務紀錄表</th>
+                    </tr>
+                    <tr>
+                        <th className="logTh"><span className="text">工號</span></th>
+                        <th className="logTh"><span className="text">姓名</span></th>
+                        <th className="logTh"><span className="text">狀態</span></th>
+                        <th className="logTh"><span className="text">類別</span></th>
+                        <th className="logTh"><span className="text">備註</span></th>
+                        <th className="logTh"><span className="text">處理時間</span></th>
+                        <th className="logTh"><span className="text">紀錄時間</span></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {list}
+                </tbody>
+            </table>
+        </div>
     );
 }
 

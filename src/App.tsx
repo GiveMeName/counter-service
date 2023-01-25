@@ -46,9 +46,6 @@ function App() {
 
   numberDispenser.setNumber(number);
 
-
-
-
   //結束
 
   return (
