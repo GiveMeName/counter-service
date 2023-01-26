@@ -1,32 +1,11 @@
 import { useState } from "react";
+import { types } from "../mock/mock";
 
-const member = [{
-  id: "S01023",
-  name: "王大明"
-}, {
-  id: "S01024",
-  name: "梅東"
-}, {
-  id: "S01025",
-  name: "比爾伯斯"
-}, {
-  id: "S01026",
-  name: "李奧"
-}, {
-  id: "S01027",
-  name: "麥蘇"
-}, {
-  id: "S01028",
-  name: "張林"
-}];
+function CounterUI(props: { memberData: { id: string, name: string }, counterNumber: number, queues: number[], start: Function, finish: Function }) {
 
-const types = ["叫號逾時","定存/活存", "信用卡", "基金", "保險", "彩券兌獎", "外幣交易"];
-
-function CounterUI(props: { counterNumber: number, queues: number[], start: Function, finish: Function }) {
-
-  const { counterNumber, queues, start, finish } = props;
+  const { memberData, counterNumber, queues, start, finish } = props;
   const [count, setCount] = useState(0);
-  const { id, name } = member[counterNumber];
+  const { id, name } = memberData;
   const [disabled, setDisabled] = useState(false);
 
   //開始下一個服務
@@ -59,7 +38,7 @@ function CounterUI(props: { counterNumber: number, queues: number[], start: Func
   const handClick = () => {
 
     if (queues.length === 0) {
-      
+
       return;
 
     }

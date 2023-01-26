@@ -9,6 +9,7 @@ import QueuesUI from './component/Queues';
 import LogUI from './component/Log';
 import NumberDispenserUI from './component/NumberDispenser';
 import { ILog } from './interface/interface';
+import { members } from './mock/mock';
 
 const tmpLogList: ILog[] = [];
 
@@ -42,6 +43,22 @@ function App() {
     tmpLogList.unshift({ id, name, state, type, remark, processTime, date });
   }
 
+  //生成櫃台
+  const generateCounterUIList = () => {
+
+    const list = [];
+
+    for (let i = 0; i < 5; i++) {
+
+      const memberData = members[i];
+
+      list.push(<CounterUI memberData={memberData} counterNumber={i} queues={queues} start={callNumberStart} finish={callNumberFinish}></CounterUI>);
+    }
+
+    return list;
+  };
+
+  const counterUIList = generateCounterUIList();
 
   //結束
   return (
@@ -50,17 +67,13 @@ function App() {
         <NumberDispenserUI disabled={queues.length > 19} finish={getNumberFinish}></NumberDispenserUI>
         <QueuesUI data={queues}></QueuesUI>
         <div className="counterGroup">
-          <CounterUI counterNumber={0} queues={queues} start={callNumberStart} finish={callNumberFinish}></CounterUI>
-          <CounterUI counterNumber={1} queues={queues} start={callNumberStart} finish={callNumberFinish}></CounterUI>
-          <CounterUI counterNumber={2} queues={queues} start={callNumberStart} finish={callNumberFinish}></CounterUI>
-          <CounterUI counterNumber={3} queues={queues} start={callNumberStart} finish={callNumberFinish}></CounterUI>
-          <CounterUI counterNumber={4} queues={queues} start={callNumberStart} finish={callNumberFinish}></CounterUI>
+          {counterUIList}
         </div>
       </div>
       <div className='right'>
         <LogUI data={logList} />
       </div>
-    </div>
+    </div >
   );
 }
 

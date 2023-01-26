@@ -7,6 +7,8 @@ import reportWebVitals from './reportWebVitals';
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
+//先避免重複渲染
 /*
 root.render(
   <React.StrictMode>
