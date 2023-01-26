@@ -20,7 +20,7 @@ const member = [{
   name: "張林"
 }];
 
-const types = ["定存/活存", "信用卡", "基金", "保險", "彩券兌獎", "外幣交易"];
+const types = ["叫號逾時","定存/活存", "信用卡", "基金", "保險", "彩券兌獎", "外幣交易"];
 
 function CounterUI(props: { counterNumber: number, queues: number[], start: Function, finish: Function }) {
 

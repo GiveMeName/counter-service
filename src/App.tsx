@@ -37,9 +37,9 @@ function App() {
 
     const date = dateMaker.now();
 
-    setLogList([...tmpLogList, { id, name, state, type, remark, processTime, date }]);
+    setLogList([{ id, name, state, type, remark, processTime, date }, ...tmpLogList]);
 
-    tmpLogList.push({ id, name, state, type, remark, processTime, date });
+    tmpLogList.unshift({ id, name, state, type, remark, processTime, date });
   }
 
 
